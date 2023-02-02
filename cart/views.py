@@ -27,11 +27,6 @@ def add_cart(request, product_id):
     cart.save()
 
     if current_user.is_authenticated:
-        if request.method == 'POST':
-            for item in request.POST:
-                key = item
-                value = request.POST[key]
-        
         is_cart_item_exists = CartItem.objects.filter(product=product, user=current_user).exists()
         if is_cart_item_exists:
             cart_item = CartItem.objects.get(product=product, user=current_user)
@@ -46,11 +41,6 @@ def add_cart(request, product_id):
             cart_item.save()
         return redirect('cart')
     else:
-        if request.method == 'POST':
-            for item in request.POST:
-                key = item
-                value = request.POST[key]
-
         is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
         if is_cart_item_exists:
             cart_item = CartItem.objects.get(product=product, cart=cart)
