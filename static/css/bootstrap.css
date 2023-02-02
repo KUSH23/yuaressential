@@ -5330,7 +5330,7 @@ a.badge-gray-light:focus, a.badge-gray-light.focus {
   border-color: #854b0c;
 }
 
-.list-group-item-danger {
+.accordion {
   color: #821b1b;
   background-color: #fec6c6;
 }
