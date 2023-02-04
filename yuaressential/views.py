@@ -6,8 +6,9 @@ def home(request):
 
     # Get the reviews
     reviews = None
-    for product in products:
-        reviews = ReviewRating.objects.filter(product_id=product.id, status=True)
+    if products:
+        for product in products:
+            reviews = ReviewRating.objects.filter(product_id=product.id, status=True)
 
     context = {
         'products': products[:4],
