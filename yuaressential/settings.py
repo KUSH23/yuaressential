@@ -150,7 +150,7 @@ USE_TZ = True
 #     'yuaressential/static',
 # ]
 
-AWS S3 Static Files Configuration
+#AWS S3 Static Files Configuration
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
