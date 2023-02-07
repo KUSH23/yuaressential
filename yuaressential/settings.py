@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['yuarenv-env.eba-nkhi4dpz.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['yuarenv-env.eba-nkhi4dpz.us-west-2.elasticbeanstalk.com', '127.0.0.1']
 
 
 # Application definition
@@ -150,7 +150,7 @@ USE_TZ = True
 #     'yuaressential/static',
 # ]
 
-# AWS S3 Static Files Configuration
+AWS S3 Static Files Configuration
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
@@ -169,12 +169,12 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-DEFAULT_FILE_STORAGE = 'yuaressential.media_storages.MediaStorage'
-
 #media files
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR /'media'
+
+DEFAULT_FILE_STORAGE = 'yuaressential.media_storages.MediaStorage'
 
 
 from django.contrib.messages import constants as messages
@@ -183,7 +183,7 @@ MESSAGE_TAGS = {
 }
 
 #SMTP config
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')

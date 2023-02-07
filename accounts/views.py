@@ -11,7 +11,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
+from decouple import config
 
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
@@ -47,9 +48,8 @@ def register(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
             })
-            to_email = email
-            send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()
+            to_email = [email]
+            send_mail(mail_subject, message, config('EMAIL_HOST_USER'), to_email)
             return redirect('/accounts/login/?command=verification&email='+email)
     else:
         form = RegistrationForm()
