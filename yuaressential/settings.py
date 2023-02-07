@@ -89,10 +89,21 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': config('RDS_DB_NAME'),
+#             'USER': config('RDS_USERNAME'),
+#             'PASSWORD': config('RDS_PASSWORD'),
+#             'HOST': config('RDS_HOSTNAME'),
+#             'PORT': config('RDS_PORT'),
+#         }
+#     }
+
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ['RDS_DB_NAME'],
             'USER': os.environ['RDS_USERNAME'],
             'PASSWORD': os.environ['RDS_PASSWORD'],
@@ -144,11 +155,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR /'static'
-# STATICFILES_DIRS = [
-#     'yuaressential/static',
-# ]
 
 #AWS S3 Static Files Configuration
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
@@ -162,9 +168,14 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = 'static'
 
-STATICFILES_DIRS = [
-    'yuaressential/static',
-]
+
+# STATICFILES_DIRS = [
+#     'yuaressential/static',
+# ]
+
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR /'static'
+
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
