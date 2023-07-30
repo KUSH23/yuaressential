@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['http://yuar-env.eba-p6rvvwah.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['yuar-env.eba-p6rvvwah.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
