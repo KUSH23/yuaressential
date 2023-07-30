@@ -169,20 +169,20 @@ STATICFILES_DIRS = [
     'yuaressential/static',
 ]
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR /'static'
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR /'static'
 
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 #media files
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR /'media'
 
 # AWS S3 Media Files Configuration
-# DEFAULT_FILE_STORAGE = 'yuaressential.media_storages.MediaStorage'
+DEFAULT_FILE_STORAGE = 'yuaressential.media_storages.MediaStorage'
 
 
 from django.contrib.messages import constants as messages
