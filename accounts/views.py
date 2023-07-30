@@ -34,10 +34,10 @@ def register(request):
             user.save()
 
     #         # Create a user profile
-            profile = UserProfile()
-            profile.user_id = user.id
-            profile.profile_picture = 'default/default.png'
-            profile.save()
+            # profile = UserProfile()
+            # profile.user_id = user.id
+            # profile.profile_picture = 'default/default.png'
+            # profile.save()
 
             # USER ACTIVATION
             current_site = get_current_site(request)
