@@ -3,241 +3,214 @@
 
 {% block content %}
 
-<!-- HEADING-BANNER START -->
-<div class="heading-banner-area overlay-bg">
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading-banner">
-                    <div class="heading-banner-title">
-                        <h2>Our Store</h2>
-                    </div>
-                    <div class="breadcumbs pb-15">
-                        <ul>
-                        {% if 'search' in request.path %}
-                        <li><a href="#">{{request.path}}</a></li>
-                        {% else %}
-                        <li>Our Store</li>
-                        {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- HEADING-BANNER END -->
-
-<!-- PRODUCT-AREA START -->
-<div class="product-area pt-80 pb-80 product-style-2">
+        {% if 'search' in request.path %}
+        <h2 class="title-page">Search Results</h2>
+        {% else %}
+        <h2 class="title-page">Our Store</h2>
+        {% endif %}
+        
+    </div> <!-- container //  -->
+    </section>
+    <!-- ========================= SECTION INTRO END// ========================= -->
+    
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-content padding-y">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 order-2 order-lg-1">
-                <!-- Widget-Search start -->
-                <aside class="widget widget-search mb-30">
-                    <form action="{% url 'search' %}" class="search" method='GET'>
-                        <input type="text" placeholder="Search here..." name="keyword"/>
-                        <button type="submit">
-                            <i class="zmdi zmdi-search"></i>
-                        </button>
-                    </form>
-                </aside>
-                <!-- Widget-search end -->
-                <!-- Widget-Categories start -->
-                <aside class="widget widget-categories  mb-30">
-                    <div class="widget-title">
-                        <h4>Categories</h4>
-                    </div>
-                    <div id="cat-treeview"  class="widget-info product-cat boxscrol2">
-                        <ul class="list-menu">
-                            <li><span><a href="{% url 'store' %}">All Products</a></span></li>
-                            {% for category in links %}
-                            <li><span><a href="{{ category.get_url }}">{{category.category_name}}</a></span></li>
-                            {% endfor %}
-                            <li><span>Chair</span>
-                                <ul>
-                                    <li><a href="#">T-Shirts</a></li>
-                                    <li><a href="#">Striped Shirts</a></li>
-                                    <li><a href="#">Half Shirts</a></li>
-                                    <li><a href="#">Formal Shirts</a></li>
-                                    <li><a href="#">Bilazers</a></li>
-                                </ul>
-                            </li>          
-                        </ul>
-                    </div>
-                </aside>
-                <!-- Widget-categories end -->
-                <!-- Shop-Filter start -->
-                <aside class="widget shop-filter mb-30">
-                    <div class="widget-title">
-                        <h4>Price</h4>
-                    </div>
-                    <div class="widget-info">
-                        <div class="price_filter">
-                            <div class="price_slider_amount">
-                                <input type="submit"  value="You range :"/> 
-                                <input type="text" id="amount" name="price"  placeholder="Add Your Price" /> 
-                            </div>
-                            <div id="slider-range"></div>
-                        </div>
-                    </div>
-                </aside>
-                <!-- Shop-Filter end -->
-                <!-- Widget-banner start -->
-                <aside class="widget widget-banner hidden-sm">
-                    <div class="widget-info widget-banner-img">
-                        <a href="#"><img src="{% static 'img/banner/5.jpg' %}" alt="" /></a>
-                    </div>
-                </aside>
-                <!-- Widget-banner end -->
+    
+    <div class="row">
+        <aside class="col-md-3">
+            
+    <div class="card">
+        <article class="filter-group">
+            <header class="card-header">
+                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                    <i class="icon-control fa fa-chevron-down"></i>
+                    <h6 class="title">Categories</h6>
+                </a>
+            </header>
+            <div class="filter-content collapse show" id="collapse_1" style="">
+                <div class="card-body">
+                    
+                    <ul class="list-menu">
+                    <li><a href="{% url 'store' %}">All Products</a></li>
+                    {% for category in links %}
+                    <li><a href="{{ category.get_url }}">{{category.category_name}}</a></li>
+                    {% endfor %}
+                    </ul>
+    
+                </div> <!-- card-body.// -->
             </div>
-            <div class="col-lg-9 order-1 order-lg-2">
-                <!-- Shop-Content End -->
-                <div class="shop-content mt-tab-30 mb-30 mb-lg-0">
-                    <div class="product-option mb-30 clearfix">
-                        <!-- Nav tabs -->
-                        <ul class="nav d-block shop-tab">
-                            <li><a class="active" href="#grid-view" data-bs-toggle="tab"><i class="zmdi zmdi-view-module"></i></a></li>
-                        </ul>
-                        <div class="showing text-end d-none d-md-block">
-                            <p class="mb-0">Showing {{ product_count }} Results</p>
-                        </div>
-                    </div>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        {% if categories %}							
-                            <div class="row shop-list">
-                                {% if products %}
-                                {% for product in products %}
-                                <!-- Single-product start -->
-                                <div class="col-lg-12">
-                                    <div class="single-product clearfix">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="fix">
-                                                <h4 class="post-title floatleft"><a href="{{ product.get_url }}">{{ product.product_name }}</a></h4>
-                                                <span class="pro-rating floatright">
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 0.5 %}-outline{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 1.5 %}-outline{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 2.5 %}-outline{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 3.5 %}-outline{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 4.5 %}-outline{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <span>( {{product.countReview}} Rating )</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix mb-20">
-                                                <span class="pro-price">₹ {{ product.price }}</span>
-                                            </div>
-                                            <div class="product-description">
-                                                <p>{{ product.description }}</p>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="cart-plus-minus">
-                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                </div>
-                                                {% if product.stock <= 0 %}
-                                                <h5 class="text-danger">Out of Stock</h5>
-                                                {% else %}
-                                                <div class="product-action clearfix">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                    <a href="{{ product.flipkart_link }}" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                    <a href="{% url 'add_cart' product.id %}" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                {% endfor %}
-                                {% else %}
-                                <div>
-                                    <h2>No result found. Please try again.</h2>
-                                </div>
-                                {% endif %}
-                            </div>
-                        {% else %}
-                            <div class="row">
-                                {% if products %}
-                                {% for product in products %}
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">₹ {{ product.price }}</span>
-                                            <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="{{ product.get_url }}">{{ product.product_name }}</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-star-half {% endif %}" aria-hidden="true"></i></a>
-                                                    <span>({{product.countReview}})</span>
-                                                </span>
-                                            </div>
-                                            {% if product.stock <= 0 %}
-                                            <h5 class="text-danger">Out of Stock</h5>
-                                            {% else %}
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="{{ product.flipkart_link }}" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="{% url 'add_cart' product.id %}" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                {% endfor %}
-                                {% else %}
-                                <div>
-                                    <h2>No result found. Please try again.</h2>
-                                </div>
-                                {% endif %}
-                            </div>							
-                        {% endif %}
-                    </div>
-                    <!-- Pagination start -->
-                    <div class="shop-pagination text-center">
-                        <div class="pagination">
-                            {% if products.has_other_pages %}
-                            <ul>
-                                {% if products.has_previous %}
-                                <li><a href="?page={{products.previous_page_number}}"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
-                                {% endif %}
-                                {% for i in products.paginator.page_range %}
-                                    {% if products.number == i %}
-                                    <li class="active"><a href="#">{{i}}</a></li>
-                                    {% else %}
-                                    <li><a href="?page={{i}}">{{i}}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if products.has_next %}
-                                <li><a href="?page={{products.next_page_number}}"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
-                                {% endif %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Pagination end --> 
-                </div>
-                <!-- Shop-Content End -->
+        </article> <!-- filter-group  .// -->
+        <article class="filter-group">
+            <header class="card-header">
+                <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+                    <i class="icon-control fa fa-chevron-down"></i>
+                    <h6 class="title">Sizes </h6>
+                </a>
+            </header>
+            <div class="filter-content collapse show" id="collapse_4" style="">
+                <div class="card-body">
+                  <label class="checkbox-btn">
+                    <input type="checkbox">
+                    <span class="btn btn-light"> XS </span>
+                  </label>
+    
+                  <label class="checkbox-btn">
+                    <input type="checkbox">
+                    <span class="btn btn-light"> SM </span>
+                  </label>
+    
+                  <label class="checkbox-btn">
+                    <input type="checkbox">
+                    <span class="btn btn-light"> LG </span>
+                  </label>
+    
+                  <label class="checkbox-btn">
+                    <input type="checkbox">
+                    <span class="btn btn-light"> XXL </span>
+                  </label>
+            </div><!-- card-body.// -->
             </div>
+        </article> <!-- filter-group .// -->
+        
+        <article class="filter-group">
+            <header class="card-header">
+                <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+                    <i class="icon-control fa fa-chevron-down"></i>
+                    <h6 class="title">Price range </h6>
+                </a>
+            </header>
+            <div class="filter-content collapse show" id="collapse_3" style="">
+                <div class="card-body">
+                    
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label>Min</label>
+                      <!-- <input class="form-control" placeholder="$0" type="number"> -->
+                          <select class="mr-2 form-control">
+                            <option value="0">$0</option>
+                            <option value="50">$50</option>
+                            <option value="100">$100</option>
+                            <option value="150">$150</option>
+                            <option value="200">$200</option>
+                            <option value="500">$500</option>
+                            <option value="1000">$1000</option>
+                        </select>
+                    </div>
+                    <div class="form-group text-right col-md-6">
+                      <label>Max</label>
+                          <select class="mr-2 form-control">
+                            <option value="50">$50</option>
+                            <option value="100">$100</option>
+                            <option value="150">$150</option>
+                            <option value="200">$200</option>
+                            <option value="500">$500</option>
+                            <option value="1000">$1000</option>
+                            <option value="2000">$2000+</option>
+                        </select>
+                    </div>
+                    </div> <!-- form-row.// -->
+                    <button class="btn btn-block btn-primary">Apply</button>
+                </div><!-- card-body.// -->
+            </div>
+        </article> <!-- filter-group .// -->
+        
+    </div> <!-- card.// -->
+    
+        </aside> <!-- col.// -->
+        <main class="col-md-9">
+    
+    <header class="border-bottom mb-4 pb-3">
+            <div class="form-inline">
+                <span class="mr-md-auto"><b>{{ product_count }}</b> items found </span>
+                
+            </div>
+    </header><!-- sect-heading -->
+    
+    <div class="row">
+        {% if products %}
+        {% for product in products %}
+        <div class="col-md-4">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"> 
+                    
+                    <a href="{{ product.get_url }}"><img src="{{ product.images.url }}"></a>
+                    
+                </div> <!-- img-wrap.// -->
+                <figcaption class="info-wrap">
+                    <div class="fix-height">
+                        <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                        <div class="rating-star">
+                            <span>
+                                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <span>{{product.countReview}} reviews</span>
+                            </span>
+                        </div>
+                        <div class="price-wrap mt-2">
+                            <span class="price">₹ {{ product.price }}</span>
+                            <del class="price-old">₹ {{ product.price }}</del>
+                        </div> <!-- price-wrap.// -->
+                    </div>
+                    <!-- <a href="#" class="btn btn-block btn-success">Added to cart </a> -->
+                    {% if product.stock <= 0 %}
+                    <h5 class="text-danger">Out of Stock</h5>
+                    {% else %}
+                    <span>
+                        <a href="{% url 'add_cart' product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                        <a href="{{ product.flipkart_link }}" class="btn  btn-primary"> <span class="text">Buy on flipkart</span> <i class="fas fa-shopping-cart"></i>  </a>  
+                    </span>
+                    {% endif %}
+                </figcaption>
+            </figure>
+        </div> <!-- col.// -->
+        {% endfor %}
+        {% else %}
+        <div>
+            <h2>No result found. Please try again.</h2>
         </div>
-    </div>
-</div>
-<!-- PRODUCT-AREA END -->
+        {% endif %}
+    </div> <!-- row end.// -->
+    
+    
+    <nav class="mt-4" aria-label="Page navigation sample">
+    {% if products.has_other_pages %}
+        <ul class="pagination">
+            {% if products.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            {% endif %}
 
+            {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+        {% endfor %}
+
+            {% if products.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    </nav>
+    
+        </main> <!-- col.// -->
+    
+    </div>
+    
+    </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
 {% endblock %}
