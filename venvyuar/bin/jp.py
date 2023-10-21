@@ -1,4 +1,4 @@
-#!/Users/kushal/Development/Python/yuaressential/yuarenv/bin/python3.11
+#!/Users/kushal/Development/Python/yuaressential/venvyuar/bin/python3.11
 
 import sys
 import json

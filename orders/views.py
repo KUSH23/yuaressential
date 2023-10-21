@@ -8,6 +8,8 @@ import json
 from store.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+import razorpay
+from decouple import config
 
 
 def payments(request):
@@ -114,17 +116,22 @@ def place_order(request, total=0, quantity=0,):
             mt = int(datetime.date.today().strftime('%m'))
             d = datetime.date(yr,mt,dt)
             current_date = d.strftime("%Y%m%d") #20210305
-            order_number = current_date + str(data.id)
+            rpapikey = config('RAJORPAY_KEY')
+            client = razorpay.Client(auth = (config('RAJORPAY_KEY') , config('RAJORPAY_SECRET_KEY')) ) 
+            payment = client.order.create({'amount': total, 'currency':'INR', 'payment_capture' : 1})
+            print(payment)
+
+            order_number = payment['id']
             data.order_number = order_number
             data.save()
-
             order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
             context = {
+                'rpapikey': rpapikey,
                 'order': order,
                 'cart_items': cart_items,
                 'total': total,
                 'tax': tax,
-                'grand_total': grand_total,
+                'grand_total': grand_total * 100,
             }
             return render(request, 'orders/payments.html', context)
     else:
