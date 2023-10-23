@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -165,13 +166,13 @@ USE_TZ = True
 # AWS_LOCATION = 'static'
 
 
-STATICFILES_DIRS = [
-    'yuaressential/static',
-]
+# STATICFILES_DIRS = [
+#     'yuaressential/static',
+# ]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
