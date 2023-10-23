@@ -103,12 +103,13 @@ parameters = {pair.split('=')[0]:pair.split('=')[1] for pair in connection_strin
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': parameters['dbname'],
         'USER': parameters['user'],
         'PASSWORD': parameters['password'],
         'HOST': parameters['host'],
         'PORT': parameters['port'],
+        "OPTIONS": {"sslmode": "require"},
     }
 }
 
