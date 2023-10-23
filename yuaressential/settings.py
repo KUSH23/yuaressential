@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-mm!3aq-*d*@upqlnmb0ysja7&^&v9%z#ikqq_mqa34#0zdns^+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
@@ -50,9 +50,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -166,9 +166,9 @@ USE_TZ = True
 # AWS_LOCATION = 'static'
 
 
-# STATICFILES_DIRS = [
-#     'yuaressential/static',
-# ]
+STATICFILES_DIRS = [
+    'yuaressential/static',
+]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
