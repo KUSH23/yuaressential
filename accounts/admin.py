@@ -10,11 +10,11 @@ class AccountAdmin(UserAdmin):
     list_display_links = ('email', 'first_name', 'last_name')
     readonly_fields = ('last_login', 'date_joined')
     ordering = ('-date_joined',)
-
-    filter_horizontal = ()
+    
+    filter_horizontal = ('groups', 'user_permissions',)
     list_filter = ()
     fieldsets = ()
-
+ 
 class UserProfileAdmin(admin.ModelAdmin):
     def thumbnail(self, object):
         return format_html('<img src="{}" width="30" style="border-radius:50%;">'.format(object.profile_picture.url))

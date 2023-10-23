@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from cart.models import CartItem
+
 from .forms import OrderForm
 import datetime
 from .models import Order, Payment, OrderProduct
@@ -111,11 +112,11 @@ def place_order(request, total=0, quantity=0,):
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
             # Generate order number
-            yr = int(datetime.date.today().strftime('%Y'))
-            dt = int(datetime.date.today().strftime('%d'))
-            mt = int(datetime.date.today().strftime('%m'))
-            d = datetime.date(yr,mt,dt)
-            current_date = d.strftime("%Y%m%d") #20210305
+            # yr = int(datetime.date.today().strftime('%Y'))
+            # dt = int(datetime.date.today().strftime('%d'))
+            # mt = int(datetime.date.today().strftime('%m'))
+            # d = datetime.date(yr,mt,dt)
+            # current_date = d.strftime("%Y%m%d") #20210305
             rpapikey = config('RAJORPAY_KEY')
             client = razorpay.Client(auth = (config('RAJORPAY_KEY') , config('RAJORPAY_SECRET_KEY')) ) 
             payment = client.order.create({'amount': total, 'currency':'INR', 'payment_capture' : 1})
@@ -125,6 +126,7 @@ def place_order(request, total=0, quantity=0,):
             data.order_number = order_number
             data.save()
             order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
+            
             context = {
                 'rpapikey': rpapikey,
                 'order': order,

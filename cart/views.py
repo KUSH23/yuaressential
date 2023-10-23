@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from store.models import Product
 from .models import Cart, CartItem
+from accounts.models import UserProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
@@ -131,6 +132,8 @@ def checkout(request, total=0, quantity=0, cart_items=None):
         grand_total = total + tax
     except ObjectDoesNotExist:
         pass #just ignore
+    
+    userprofile = UserProfile.objects.get(user_id=request.user.id)
 
     context = {
         'total': total,
@@ -138,5 +141,6 @@ def checkout(request, total=0, quantity=0, cart_items=None):
         'cart_items': cart_items,
         'tax'       : tax,
         'grand_total': grand_total,
+        'userprofile': userprofile,
     }
     return render(request, 'store/checkout.html', context)
