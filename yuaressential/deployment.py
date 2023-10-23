@@ -88,32 +88,27 @@ WSGI_APPLICATION = 'yuaressential.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-
-#     }
 connection_string = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
 parameters = {pair.split('=')[0]:pair.split('=')[1] for pair in connection_string.split(' ')}
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': parameters['dbname'],
+#         'USER': parameters['user'],
+#         'PASSWORD': parameters['password'],
+#         'HOST': parameters['host'],
+#         'PORT': parameters['port'],
+#         "OPTIONS": {"sslmode": "require"},
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': parameters['dbname'],
-        'USER': parameters['user'],
-        'PASSWORD': parameters['password'],
-        'HOST': parameters['host'],
-        'PORT': parameters['port'],
-        "OPTIONS": {"sslmode": "require"},
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
 
 
 # Password validation
@@ -138,13 +133,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
-USE_I18N = True
+# USE_I18N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
