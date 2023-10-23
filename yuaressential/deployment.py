@@ -26,9 +26,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=False
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
+ALLOWED_HOSTS = ['yuaressentialbariyo.azurewebsites.net']
 
-CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
+CSRF_TRUSTED_ORIGINS = ['https://yuaressentialbariyo.azurewebsites.net']
 
 
 # Application definition
@@ -88,8 +88,8 @@ WSGI_APPLICATION = 'yuaressential.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-connection_string = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-parameters = {pair.split('=')[0]:pair.split('=')[1] for pair in connection_string.split(' ')}
+# connection_string = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+# parameters = {pair.split('=')[0]:pair.split('=')[1] for pair in connection_string.split(' ')}
 
 # DATABASES = {
 #     'default': {
@@ -160,8 +160,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR /'staticfiles'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = BASE_DIR /'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -182,12 +182,12 @@ MESSAGE_TAGS = {
 }
 
 #SMTP config
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_PORT = os.environ['EMAIL_PORT']
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ['EMAIL_HOST']
+# EMAIL_PORT = os.environ['EMAIL_PORT']
+# EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+# EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
 
 
 # Default primary key field type
