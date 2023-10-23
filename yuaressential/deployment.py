@@ -26,9 +26,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=False
 
-ALLOWED_HOSTS = ['yuaressentialbariyo.azurewebsites.net']
+ALLOWED_HOSTS = [os.environ['SECRET_KEY']]
 
-CSRF_TRUSTED_ORIGINS = ['https://yuaressentialbariyo.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['SECRET_KEY']]
 
 
 # Application definition
