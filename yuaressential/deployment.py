@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
 
 CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
 
@@ -164,12 +164,13 @@ USE_TZ = True
 # AWS_LOCATION = 'static'
 
 
-STATIC_URL = 'https://'+os.environ['WEBSITE_HOSTNAME']+'/static/'
-
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR /'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 #media files
 
